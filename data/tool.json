@@ -1,0 +1,119 @@
+{
+    "qq": {
+        "name": "QQ",
+        "kandian_qq_number": {
+            "name": "看点QQ账号",
+            "keyword": "QQ看点账号",
+            "hot": true
+        },
+        "revise_online_model": {
+            "name": "修改在线机型",
+            "keyword": "QQ修改iPhone13在线",
+            "hot": true
+        },
+        "information": {
+            "name": "信息",
+            "keyword": "QQ资料查询"
+        },
+        "force_add_friend": {
+            "name": "强制加好友",
+            "keyword": "QQ强制加好友",
+            "hot": true
+        },
+        "generate_add_group_url": {
+            "name": "生成加群链接",
+            "keyword": "生成加群链接"
+        },
+        "four_day_svip": {
+            "name": "4天SVIP",
+            "keyword": "4天SVIP",
+            "hot": true
+        },
+        "three_day_green_diamond": {
+            "name": "3天绿钻",
+            "keyword": "3天绿钻",
+            "hot": true
+        },
+        "two_day_svip": {
+            "name": "2天SVIP",
+            "keyword": "2天SVIP",
+            "hot": true
+        },
+        "zone_popularity": {
+            "name": "空间人气",
+            "keyword": "空间人气",
+            "hot": true
+        }
+    },
+    "convenience": {
+        "name": "便民",
+        "honor_king_minimum_glory_combat_effectiveness": {
+            "name": "王者荣耀最低荣耀战力",
+            "keyword": "王者战力查询"
+        },
+        "calculation_relative_relation": {
+            "name": "计算亲戚关系",
+            "keyword": "称谓计算"
+        },
+        "information_probe": {
+            "name": "信息探针",
+            "keyword": "照妖镜,查询对方IP、GPS、照片",
+            "hot": true
+        },
+        "image_caricature": {
+            "name": "图像漫画化",
+            "keyword": "人物漫画化"
+        },
+        "image_exif": {
+            "name": "图像EXIF",
+            "keyword": "查询图片信息"
+        },
+        "short_video_analysis": {
+            "name": "短视频解析",
+            "keyword": "抖音解析,快手解析"
+        },
+        "sixty_second_read_world": {
+            "name": "60秒读懂世界",
+            "keyword": "每日新闻"
+        },
+        "phone_number_ascription": {
+            "name": "手机号归属",
+            "keyword": "查询手机号归属地"
+        },
+        "text_count": {
+            "name": "文本统计",
+            "keyword": "文本分析"
+        },
+        "birth_date_in_pi_position": {
+            "name": "生日在π的第几位",
+            "keyword": "π的第几位是生日"
+        }
+    },
+    "development": {
+        "name": "开发",
+        "ping": {
+            "name": "Ping",
+            "keyword": "IP延迟"
+        },
+        "icp": {
+            "name": "域名备案信息",
+            "keyword": "查询ICP"
+        },
+        "ip_location": {
+            "name": "IP定位",
+            "keyword": "IP归属"
+        },
+        "whois": {
+            "name": "Whois",
+            "keyword": "域名信息"
+        },
+        "md5_encryption": {
+            "name": "MD5加密",
+            "keyword": "在线MD5加密"
+        },
+        "user_agent_analysis": {
+            "name": "UA分析",
+            "keyword": "UA分析"
+        }
+    }
+}
