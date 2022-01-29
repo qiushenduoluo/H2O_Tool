@@ -38,16 +38,16 @@
                     
                     submit_button.disabled = true;
                     
-                    if (get_cookie('state') != '状态:已登录') {
+                    if (!is_login()) {
                         layer.close(load);
                         layer.alert('未登录');
                         submit_button.disabled = false;
-                    } else if (get_cookie('permission_state') != '状态:已登录') {
+                    } else if (!is_permission_login()) {
                         layer.close(load);
                         layer.alert('权限未登录');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('../../include/back/tool_api/lvzuan.php?uin=' + get_cookie('qq_number').replace('账号:', '') + '&skey=' + get_cookie('skey') + '&pskey=' + get_cookie('p_skey') +'&superkey=' + get_cookie('pt4_token'))
+                        axios.get('../../include/back/tool_api/lvzuan.php?uin=' + get_qq_number() + '&skey=' + get_cookie('skey') + '&pskey=' + get_cookie('p_skey') +'&superkey=' + get_cookie('pt4_token'))
                             .then(function(data) {
                                 data = data.data.msg
                                 layer.close(load);

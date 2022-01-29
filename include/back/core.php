@@ -80,7 +80,7 @@
         } else {
             if (array_key_exists($api_category, $doc_data) and array_key_exists($api_name, $doc_data[$api_category])) {
                 $is_doc = true;
-                $title = '['.$doc_data[$api_category]['name'].']'.$doc_data[$api_category][$api_name]['name'].' - 文档 - 氧化氢聚合网';
+                $title = '['.$doc_data[$api_category]['name'].']'.$doc_data[$api_category][$api_name]['name'].' - 文档 - '.$core_data['title'];
             } else {
                 $title = '文档 - '.$core_data['title'];
             }

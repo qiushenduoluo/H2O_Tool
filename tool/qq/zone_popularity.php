@@ -38,16 +38,16 @@
                     
                     submit_button.disabled = true;
                     
-                    if (get_cookie('state') != '状态:已登录') {
+                    if (!is_login()) {
                         layer.close(load);
                         layer.alert('未登录');
                         submit_button.disabled = false;
-                    } else if (get_cookie('permission_state') != '状态:已登录') {
+                    } else if (!is_permission_login()) {
                         layer.close(load);
                         layer.alert('权限未登录');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('../../include/back/tool_api/rq.php?qq=' + get_cookie('qq_number').replace('账号:', ''))
+                        axios.get('../../include/back/tool_api/rq.php?qq=' + get_qq_number())
                             .then(function(data) {
                                 data = data.data.msg
                                 layer.close(load);

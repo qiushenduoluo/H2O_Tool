@@ -1,21 +1,21 @@
 <?php require_once '../../include/front/header.php'; ?>
         
         <div class="layui-card">
+            <div class="layui-card-header">说明</div>
+            <div class="layui-card-body">
+                每个QQ账户只能领取一次.
+            </div>
+        </div>
+        
+        <div class="layui-card">
             <div class="layui-card-header">控制台</div>
             <div class="layui-card-body">
                 
                 <form class="layui-form layui-form-pane">
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">QQ群号</label>
                         <div class="layui-input-block">
-                            <input type="text" name="qq_group_number" autocomplete="off" placeholder="请输入QQ群号" class="layui-input" lay-verify="required"/>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">查询</button>
+                            <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">领取</button>
                         </div>
                     </div>
                     
@@ -33,27 +33,25 @@
                     
                     var load = layer.load(0, {shade: false}),
                         submit_button = document.getElementById('submit_button'),
-                        qq_group_number = data.qq_group_number;
+                        model = data.model,
+                        imei = data.imei;
                     
                     submit_button.disabled = true;
                     
-                    if(!qq_group_number){
+                    if (!is_login()) {
                         layer.close(load);
-                        layer.msg('请输入QQ群号');
+                        layer.alert('未登录');
+                        submit_button.disabled = false;
+                    } else if (!is_permission_login()) {
+                        layer.close(load);
+                        layer.alert('权限未登录');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('https://api.heroa.cn:3403/qq/add_group/?format=json&qq_group_number=' + qq_group_number)
+                        axios.get('../../include/back/tool_api/2svip.php?uin=' + get_qq_number() + '&skey=' + get_cookie('skey') + '&pskey=' + get_cookie('p_skey'))
                             .then(function(data) {
-                                data = data.data.information.url;
+                                data = data.data.msg
                                 layer.close(load);
-                                layer.open({
-                                    content: '加群链接:' + data
-                                    ,btn: ['复制', '取消']
-                                    ,yes: function(index, layero){
-                                        copy_text(data);
-                                        layer.msg('复制成功');
-                                    }
-                                });
+                                layer.msg(data);
                                 submit_button.disabled = false;
                         });
                     }

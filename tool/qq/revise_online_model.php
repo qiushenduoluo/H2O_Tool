@@ -59,7 +59,7 @@
                     
                     submit_button.disabled = true;
                     
-                    if (get_cookie('state') != '状态:已登录') {
+                    if (!is_login()) {
                         layer.close(load);
                         layer.alert('未登录');
                         submit_button.disabled = false;

@@ -23,7 +23,7 @@
             return $data;
         }
         $cookie = $data['cookie'];
-        return [$data['base']['qq_number'], $cookie['uin'], $cookie['skey'], $cookie['p_uin'], $cookie['p_skey'], $cookie['pt4_token'], $cookie['g_tk']];
+        return [$data['base']['qq_number'], $cookie['uin'], $cookie['skey'], $cookie['p_uin'], $cookie['p_skey'], $cookie['pt4_token'], $cookie['skey_g_tk']];
     }
     
     function return_response_result($result) {

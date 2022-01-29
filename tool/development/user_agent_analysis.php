@@ -3,8 +3,15 @@
         <div class="layui-card">
             <div class="layui-card-header">控制台</div>
             <div class="layui-card-body">
-            
+                
                 <form class="layui-form layui-form-pane">
+                    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">我的UA</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="my_user_agent" autocomplete="off" class="layui-input" disabled="disabled"/>
+                        </div>
+                    </div>
                     
                     <div class="layui-form-item">
                         <label class="layui-form-label">UA</label>
@@ -46,6 +53,10 @@
         </div>
         
         <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById('my_user_agent').value = navigator.userAgent;
+            });
+            
             user_agent = get_request_parameter('user_agent');
             
             if (user_agent) {

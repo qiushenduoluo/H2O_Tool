@@ -1,11 +1,12 @@
 {
-    "title": "氧化氢聚合网",
+    "title": "氧化氢工具箱",
     "subtitle": "一切是那么的简约高效",
-    "keyword": "氧化氢聚合网,氧化氢工具箱,氧化氢API文档,网页工具箱",
+    "keyword": "氧化氢工具箱,氧化氢API文档,网页工具箱",
     "description": "一切是那么的简约高效.",
     "ico": "/include/front/image/favicon.ico",
     "notice": {
-        "content": "为了能让网站更好的为大家服务,现将网站源码公开,同时也希望同仁加入到我们,源码在官方QQ群下载(目前已更新至1.2版本,2022年1月24日)",
+        "time": 6000,
+        "content": "为了能让网站更好的为大家服务,现将网站源码公开,同时也希望同仁加入到我们,源码在官方QQ群下载(目前已更新至1.3版本,2022年1月39日)",
         "button_name": "加入QQ群",
         "button_url": "https://jq.qq.com/?_wv=1027&k=x518BpCq"
     },

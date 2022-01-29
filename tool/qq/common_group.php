@@ -27,21 +27,7 @@
         <div id="result" style="display: none;" class="layui-card">
             <div class="layui-card-header">结果</div>
             <div class="layui-card-body">
-                
-                <table id="result_table" class="layui-table" lay-skin="row" lay-even="">
-                    <colgroup>
-                        <col width="30%"/>
-                        <col width="70%"/>
-                        <col/>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>键</th>
-                            <th>值</th>
-                        </tr>
-                    </thead>
-                </table>
-                
+                <p id="result_text"></p>
             </div>
         </div>
         
@@ -56,36 +42,39 @@
                         submit_button = document.getElementById('submit_button'),
                         qq_number = data.qq_number,
                         result = document.getElementById('result'),
-                        result_table = document.getElementById('result_table');
+                        result_text = document.getElementById('result_text');
                     
                     submit_button.disabled = true;
-                    $('tr:gt(0)').remove();
+                    result_text.innerHTML = '';
                     result.style.display = 'none';
                     
-                    if(!qq_number){
+                    if (!is_login()) {
                         layer.close(load);
-                        layer.msg('请输入QQ号');
+                        layer.alert('未登录');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('https://api.heroa.cn:3403/qq/information/?qq_number=' + qq_number)
-                            .then(function(data) {
-                                data = data.data.information
-                                if (typeof data == 'object') {
-                                    data = data.base;
-                                    result_table.innerHTML += ' \
-                                        <tr><td>头像</td><td><img src="' + data.head_portrait_url + '"></td></tr> \
-                                        <tr><td>昵称</td><td>' + data.nick_name + '</td></tr> \
-                                        <tr><td>等级</td><td>' + data.level + '</td></tr> \
-                                    ';
-                                    layer.close(load);
-                                    result.style.display = "block";
-                                    submit_button.disabled = false;
-                                } else {
-                                    layer.close(load);
-                                    layer.alert('参数错误');
-                                    submit_button.disabled = false;
-                                }
-                        });
+                        if(!qq_number){
+                            layer.close(load);
+                            layer.msg('请输入QQ号');
+                            submit_button.disabled = false;
+                        } else {
+                            axios.get('https://api.heroa.cn:3403/qq/common_group/?qq_number=' + qq_number + '&p_uin=' + get_cookie('p_uin') + '&p_skey=' + get_cookie('p_skey'))
+                                .then(function(data) {
+                                    data = data.data.information
+                                    if (typeof data == 'object') {
+                                        for (let data_count in data) {
+                                            result_text.innerHTML += data[data_count] + ' ';
+                                        }
+                                        layer.close(load);
+                                        result.style.display = "block";
+                                        submit_button.disabled = false;
+                                    } else {
+                                        layer.close(load);
+                                        layer.alert(data);
+                                        submit_button.disabled = false;
+                                    }
+                            });
+                        }
                     }
                     
                     return false;

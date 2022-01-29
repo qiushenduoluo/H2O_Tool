@@ -7,13 +7,6 @@
                 <form class="layui-form layui-form-pane">
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">地址</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="address" autocomplete="off" placeholder="请输入地址" class="layui-input" lay-verify="required"/>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
                         <div class="layui-input-block">
                             <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">查询</button>
                         </div>
@@ -54,7 +47,6 @@
                     
                     var load = layer.load(0, {shade: false}),
                         submit_button = document.getElementById('submit_button'),
-                        address = data.address,
                         result = document.getElementById('result'),
                         result_table = document.getElementById('result_table');
                     
@@ -62,32 +54,22 @@
                     $('tr:gt(0)').remove();
                     result.style.display = 'none';
                     
-                    if(!address){
+                    if (!is_login()) {
                         layer.close(load);
-                        layer.msg('请输入地址');
+                        layer.alert('未登录');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('https://api.heroa.cn:3403/development/ping/?address=' + address)
-                            .then(function(data) {
-                                data = data.data.information;
-                                if (typeof data == 'object') {
-                                    delay = data.delay;
-                                    ip = data.ip;
-                                    result_table.innerHTML += ' \
-                                        <tr><td>IP</td><td><a href="../../tool/development/ip_location.php?ip=' + ip + '" target="_blank">' + ip + '</a></td></tr> \
-                                        <tr><td>最小延迟</td><td>' + delay.minimum + ' ms</td></tr> \
-                                        <tr><td>最大延迟</td><td>' + delay.maximum + ' ms</td></tr> \
-                                        <tr><td>平均延迟</td><td>' + delay.average + ' ms</td></tr> \
-                                    ';
-                                    layer.close(load);
-                                    result.style.display = "block";
-                                    submit_button.disabled = false;
-                                } else {
-                                    layer.close(load);
-                                    layer.alert('失败');
-                                    submit_button.disabled = false;
-                                }
-                        });
+                        result_table.innerHTML += ' \
+                            <tr><td>uin</td><td>' + get_cookie('uin') + '</td></tr> \
+                            <tr><td>skey</td><td>' + get_cookie('skey') + '</td></tr> \
+                            <tr><td>p_uin</td><td>' + get_cookie('p_uin') + '</td></tr> \
+                            <tr><td>p_skey</td><td>' + get_cookie('p_skey') + '</td></tr> \
+                            <tr><td>pt4_token</td><td>' + get_cookie('pt4_token') + '</td></tr> \
+                            <tr><td>g_tk</td><td>' + get_cookie('g_tk') + '</td></tr> \
+                        ';
+                        layer.close(load);
+                        result.style.display = "block";
+                        submit_button.disabled = false;
                     }
                     
                     return false;

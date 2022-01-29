@@ -25,7 +25,7 @@
                     <div class="layui-card">
                         <div class="layui-card-header">当前版本</div>
                         <div class="layui-card-body">
-                            1.2
+                            1.3
                         </div>
                     </div>
                 </div>
@@ -40,6 +40,10 @@
                 <div class="layui-col-md4">
                     <a id="download_url" href="https://www.heroa.cn/" target="_blank">
                         <button type="button" class="layui-btn">下载</button>
+                    </a>
+                    
+                    <a id="download_url" href="https://github.com/XiaoXinYo/H2O_Tool" target="_blank">
+                        <button type="button" class="layui-btn">GitHub</button>
                     </a>
                 </div>
             </div>
@@ -88,8 +92,10 @@
                 <div class="layui-colla-content">
                     <p>
                         1.首先，在/data/tool.json中按照里面的格式填写.<br/>
-                        2.然后,工具展示可自定义颜色,在单个工具的键值中修改,例如"color": "red".<br/>
-                        3.最后,把工具文件放在/tool/分类名/中,工具名要与你json中填写的一致.
+                        2.其次,工具可自定义网址,在单个工具的键值中修改,例如"url": "https://www.baidu.com/",网址只能指向外站.<br/>
+                        3.再次,如工具需在热门中展示,在单个工具的键值中修改,增加"hot": "true".<br/>
+                        4.然后,工具展示可自定义颜色,在单个工具的键值中修改,例如"color": "red".<br/>
+                        5.最后,把工具文件放在/tool/分类名/中,工具名要与你json中填写的一致.
                     </p>
                 </div>
             </div>
@@ -98,7 +104,7 @@
                 <h2 class="layui-colla-title">如何增加友情链接?</h2>
                 <div class="layui-colla-content">
                     <p>
-                        在/data/link.json中按照里面的格式填写.
+                        在/data/link.json中按照里面的格式填写,名称不能相同.
                     </p>
                 </div>
             </div>
@@ -109,6 +115,17 @@
                     <p>
                         1.部分QQ工具需要Cookie才能进行使用.<br/>
                         2.如担心风险不用即可.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">为什么扫码登录失败?</h2>
+                <div class="layui-colla-content">
+                    <p>
+                        1.部分手机QQ用户无法从相册选中图片进行扫描,会直接拒绝登陆(无法识别二维码).<br/>
+                        2.解决方案①:使用TIM从相册选中图片进行扫描.<br/>
+                        解决方案②:使用电脑或另一台手机打开页面,然后扫描.
                     </p>
                 </div>
             </div>

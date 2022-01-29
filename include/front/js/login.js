@@ -156,6 +156,18 @@ function log_out() {
     layer.alert('退出成功');
 }
 
+function is_login() {
+    if (get_cookie('state') == '状态:已登录') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function get_qq_number() {
+    return get_cookie('qq_number').replace('账号:', '');
+}
+
 var permission_get_ing = false;
     permission_id = '',
     permission_qr_code = '',
@@ -221,5 +233,13 @@ function permission_login() {
                     ', {
             title: '<p style="display: block; text-align: center;">QQ扫码登录</p>'
         });
+    }
+}
+
+function is_permission_login() {
+    if (get_cookie('permission_state') == '状态:已登录') {
+        return true;
+    } else {
+        return false;
     }
 }

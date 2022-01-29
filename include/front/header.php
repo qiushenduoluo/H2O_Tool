@@ -62,7 +62,7 @@
                                 ,btn: ["'.$notice['button_name'].'", "取消"]
                                 ,btnAlign: "c"
                                 ,moveType: 1
-                                ,time: 6000
+                                ,time: '.$notice['time'].'
                                 ,content: '."'".'<div style="padding: 30px; line-height: 20px; background-color: #393D49; color: #fff; font-weight: 300;">'.$notice['content'].'</div>'."'".
                                 ',success: function(layero){
                                     var btn = layero.find(".layui-layer-btn");
@@ -78,7 +78,7 @@
             });
         </script>
         <!-- 百度统计 -->
-        <script>
+        <script type="text/javascript">
             var _hmt = _hmt || [];
             (function() {
                 var hm = document.createElement("script");
@@ -88,7 +88,7 @@
             })();
         </script>
         <!-- 百度自动推送 -->
-        <script>
+        <script type="text/javascript">
             (function(){
                 var bp = document.createElement('script');
                 var curProtocol = window.location.protocol.split(':')[0];

@@ -24,7 +24,7 @@
             "name": "生成加群链接",
             "keyword": "生成加群链接"
         },
-        "four_day_svip": {
+        "cfm_four_day_svip": {
             "name": "4天SVIP",
             "keyword": "4天SVIP",
             "hot": true
@@ -34,14 +34,40 @@
             "keyword": "3天绿钻",
             "hot": true
         },
-        "two_day_svip": {
-            "name": "2天SVIP",
-            "keyword": "2天SVIP",
+        "speedm_two_day_svip": {
+            "name": "2天SVIP[1]",
+            "keyword": "2天SVIP[1]",
             "hot": true
         },
-        "zone_popularity": {
+        "codm_two_day_svip": {
+            "name": "2天SVIP[2]",
+            "keyword": "2天SVIP[2]",
+            "hot": true
+        },"zone_popularity": {
             "name": "空间人气",
             "keyword": "空间人气",
+            "hot": true
+        },
+        "common_group": {
+            "name": "共同群",
+            "keyword": "查询与好友的共同群",
+            "hot": true
+        },
+        "delete_all_zone_say": {
+            "name": "删除全部空间说说",
+            "keyword": "空间说说一键清空"
+        },
+        "delete_all_zone_message": {
+            "name": "删除全部空间留言",
+            "keyword": "空间留言一键清空"
+        },
+        "register_time": {
+            "name": "查询注册时间",
+            "keyword": "QQ注册时间查询"
+        },
+        "qq_cookie": {
+            "name": "查询QQ-Cookie",
+            "keyword": "获取QQ登录Cookie",
             "hot": true
         }
     },
@@ -87,6 +113,10 @@
         "birth_date_in_pi_position": {
             "name": "生日在π的第几位",
             "keyword": "π的第几位是生日"
+        },
+        "generate_marketing_segment": {
+            "name": "生成营销段子",
+            "keyword": "生成小编段子"
         }
     },
     "development": {

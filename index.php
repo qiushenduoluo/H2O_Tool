@@ -31,11 +31,18 @@
                                 foreach ($tool_data as $tool_data_key => $tool_data_value) {
                                     foreach ($tool_data_value as $tool_data_value_key => $tool_data_value_value) {
                                         if ($tool_data_value_key != 'name' and $tool_data_value_value['hot']) {
+                                            if (array_key_exists('url', $tool_data_value_value)) {
+                                                $tool_url = $tool_data_value_value['url'];
+                                                $tool_target = '_blank';
+                                            } else {
+                                                $tool_url = './tool/'.$tool_data_key.'/'.$tool_data_value_key.'.php';
+                                                $tool_target = '_self';
+                                            }
                                             echo '
                                                 <div class="layui-col-md3">
                                                     <div class="layui-card">
                                                         <div class="layui-card-header">
-                                                            <a href="./tool/'.$tool_data_key.'/'.$tool_data_value_key.'.php" style="color: '.$tool_data_value_value['color'].';">['.$tool_data_value['name'].']'.$tool_data_value_value['name'].'</a>
+                                                            <a href="'.$tool_url.'" target="'.$tool_target.'" style="color: '.$tool_data_value_value['color'].';">['.$tool_data_value['name'].']'.$tool_data_value_value['name'].'</a>
                                                         </div>
                                                         <div class="layui-card-body">'
                                                             .$tool_data_value_value['keyword'].'<br/>
@@ -60,11 +67,18 @@
                         ';
                         foreach ($tool_data_value as $tool_data_value_key => $tool_data_value_value) {
                             if ($tool_data_value_key != 'name') {
+                                if (array_key_exists('url', $tool_data_value_value)) {
+                                    $tool_url = $tool_data_value_value['url'];
+                                    $tool_target = '_blank';
+                                } else {
+                                    $tool_url = './tool/'.$tool_data_key.'/'.$tool_data_value_key.'.php';
+                                    $tool_target = '_self';
+                                }
                                 echo '
                                     <div class="layui-col-md3">
                                         <div class="layui-card">
                                             <div class="layui-card-header">
-                                                <a href="./tool/'.$tool_data_key.'/'.$tool_data_value_key.'.php" style="color: '.$tool_data_value_value['color'].';">'.$tool_data_value_value['name'].'</a>
+                                                <a href="'.$tool_url.'" target="'.$tool_target.'" style="color: '.$tool_data_value_value['color'].';">'.$tool_data_value_value['name'].'</a>
                                             </div>
                                             <div class="layui-card-body">'
                                                 .$tool_data_value_value['keyword'].'<br/>
