@@ -31,9 +31,22 @@
                     
                     submit_button.disabled = true;
                     
-                    if (!is_login()) {
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
+                    if (!is_qq_login()) {
                         layer.close(load);
-                        layer.alert('未登录');
+                        layer.msg('QQ未登录');
                         submit_button.disabled = false;
                     } else {
                         axios.get('https://api.heroa.cn:3403/qq/register_time/?uin=' + get_cookie('uin') + '&skey=' + get_cookie('skey'))

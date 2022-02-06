@@ -38,20 +38,33 @@
                     
                     submit_button.disabled = true;
                     
-                    if (!is_login()) {
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
+                    if (!is_qq_login()) {
                         layer.close(load);
-                        layer.alert('未登录');
+                        layer.msg('QQ未登录');
                         submit_button.disabled = false;
                     } else if (!is_permission_login()) {
                         layer.close(load);
-                        layer.alert('权限未登录');
+                        layer.msg('权限未登录');
                         submit_button.disabled = false;
                     } else {
                         axios.get('../../include/back/tool_api/4svip.php?uin=' + get_qq_number() + '&skey=' + get_cookie('skey') + '&pskey=' + get_cookie('p_skey'))
                             .then(function(data) {
                                 data = data.data.msg
                                 layer.close(load);
-                                layer.msg(data);
+                                layer.alert(data);
                                 submit_button.disabled = false;
                         });
                     }

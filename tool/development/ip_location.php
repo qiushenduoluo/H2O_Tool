@@ -7,9 +7,9 @@
                 <form class="layui-form layui-form-pane">
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">IP</label>
+                        <label class="layui-form-label">IP地址</label>
                         <div class="layui-input-block">
-                            <input type="text" name="ip" autocomplete="off" placeholder="请输入IP" class="layui-input" lay-verify="required"/>
+                            <input type="text" name="ip_address" autocomplete="off" placeholder="请输入IP" class="layui-input" lay-verify="required"/>
                         </div>
                     </div>
                     
@@ -46,10 +46,11 @@
         </div>
         
         <script type="text/javascript">
-            ip = get_request_parameter('ip');
+            ip_address = get_request_parameter('ip_address');
             
-            if (ip) {
-                submit_d(ip);
+            if (ip_address) {
+                document.getElementById('ip_address').value = ip_address;
+                submit_d(ip_address);
             }
             
             layui.use(['form'], function() {
@@ -58,15 +59,15 @@
                 form.on('submit(submit_button)', function(data) {
                     data = data.field;
                     
-                    var ip = data.ip;
+                    var ip_address = data.ip_address;
                     
-                    submit_d(ip);
+                    submit_d(ip_address);
                     
                     return false;
                 });
             });
             
-            function submit_d(ip='') {
+            function submit_d(ip_address='') {
                 var load = layer.load(0, {shade: false}),
                     submit_button = document.getElementById('submit_button'),
                     result = document.getElementById('result'),
@@ -76,12 +77,25 @@
                 $('tr:gt(0)').remove();
                 result.style.display = 'none';
                 
-                if(!ip){
+                <?php
+                    if ($verification['open']) {
+                        echo '
+                            if (!is_verification_success()) {
+                                layer.close(load);
+                                layer.msg("验证未登录");
+                                submit_button.disabled = false;
+                                return false;
+                            }
+                        ';
+                    }
+                ?>
+                
+                if(!ip_address){
                     layer.close(load);
-                    layer.msg('请输入IP');
+                    layer.msg('请输入IP地址');
                     submit_button.disabled = false;
                 } else {
-                    axios.get('https://api.heroa.cn:3403/development/ip_location/?ip=' + ip)
+                    axios.get('https://api.heroa.cn:3403/development/ip_location/?ip_address=' + ip_address)
                         .then(function(data){
                             data = data.data.information;
                             if (typeof data == 'object') {

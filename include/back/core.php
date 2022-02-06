@@ -50,6 +50,7 @@
     
     $core_data = file_get_contents(ROOT_PATH.'data/core.json');
     $core_data = json_decode($core_data, true);
+    $verification = $core_data['verification'];
     $advertisement_data = file_get_contents(ROOT_PATH.'data/advertisement.json');
     $advertisement_data = json_decode($advertisement_data, true);
     $tool_data = file_get_contents(ROOT_PATH.'data/tool.json');

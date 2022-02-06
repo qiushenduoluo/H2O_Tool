@@ -25,7 +25,7 @@
                     <div class="layui-card">
                         <div class="layui-card-header">当前版本</div>
                         <div class="layui-card-body">
-                            1.3
+                            1.4
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,7 @@
                     <p>
                         1.在/data/core.json中修改.<br/>
                         2.如不需要公告,将notice值填写"",即"notice": "".
+                        3.如需关闭验证,将verification中open,填写false.
                     </p>
                 </div>
             </div>

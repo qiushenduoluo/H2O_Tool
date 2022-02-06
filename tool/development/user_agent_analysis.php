@@ -60,6 +60,7 @@
             user_agent = get_request_parameter('user_agent');
             
             if (user_agent) {
+                document.getElementById('user_agent').value = user_agent;
                 submit_d(user_agent);
             }
             
@@ -86,6 +87,19 @@
                 submit_button.disabled = true;
                 $('tr:gt(0)').remove();
                 result.style.display = 'none';
+                
+                <?php
+                    if ($verification['open']) {
+                        echo '
+                            if (!is_verification_success()) {
+                                layer.close(load);
+                                layer.msg("验证未登录");
+                                submit_button.disabled = false;
+                                return false;
+                            }
+                        ';
+                    }
+                ?>
                 
                 if(!user_agent){
                     layer.close(load);

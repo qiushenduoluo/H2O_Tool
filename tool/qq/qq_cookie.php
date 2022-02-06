@@ -1,5 +1,12 @@
 <?php require_once '../../include/front/header.php'; ?>
-    
+        
+        <div class="layui-card">
+            <div class="layui-card-header">说明</div>
+            <div class="layui-card-body">
+                此Cookie为QQ空间的.
+            </div>
+        </div>
+        
         <div class="layui-card">
             <div class="layui-card-header">控制台</div>
             <div class="layui-card-body">
@@ -54,9 +61,22 @@
                     $('tr:gt(0)').remove();
                     result.style.display = 'none';
                     
-                    if (!is_login()) {
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
+                    if (!is_qq_login()) {
                         layer.close(load);
-                        layer.alert('未登录');
+                        layer.msg('QQ未登录');
                         submit_button.disabled = false;
                     } else {
                         result_table.innerHTML += ' \

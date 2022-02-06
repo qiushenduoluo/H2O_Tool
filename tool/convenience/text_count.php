@@ -72,6 +72,19 @@
             $('#text').bind('input propertychange', 'textarea', function() {
                 var text = $(this).val();
                 
+                
+                <?php
+                    if ($verification['open']) {
+                        echo '
+                            if (!is_verification_success()) {
+                                layer.msg("验证未登录");
+                                return false;
+                            }
+                        ';
+                    }
+                ?>
+                
+                
                 if (!text) {
                     document.getElementById('total').innerHTML = 0;
                     document.getElementById('english').innerHTML = 0;

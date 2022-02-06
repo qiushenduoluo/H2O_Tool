@@ -80,6 +80,19 @@
                     submit_button.disabled = true;
                     result.style.display = 'none';
                     
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
                     if(!type || !key){
                         layer.close(load);
                         layer.msg('请填写完整信息');

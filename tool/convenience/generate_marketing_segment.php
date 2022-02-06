@@ -64,6 +64,19 @@
                     result_text.innerHTML = '';
                     result.style.display = 'none';
                     
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
                     if(!subject || !event_1 || !event_2) {
                         layer.close(load);
                         layer.msg('请输入完整信息');

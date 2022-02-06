@@ -83,7 +83,7 @@
         },
         "information_probe": {
             "name": "信息探针",
-            "keyword": "照妖镜,查询对方IP、GPS、照片",
+            "keyword": "照妖镜,查询对方IP,GPS,照片",
             "hot": true
         },
         "image_caricature": {
@@ -94,8 +94,8 @@
             "name": "图像EXIF",
             "keyword": "查询图片信息"
         },
-        "short_video_analysis": {
-            "name": "短视频解析",
+        "analysis_short_video": {
+            "name": "解析短视频",
             "keyword": "抖音解析,快手解析"
         },
         "sixty_second_read_world": {

@@ -64,6 +64,19 @@
                     
                     submit_button.disabled = true;
                     
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
                     if(!calculation_type || !appellation_type || !sex || !original){
                         layer.close(load);
                         layer.msg('请填写完整信息');

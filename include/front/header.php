@@ -44,7 +44,7 @@
                     ,bgcolor: '#9F9F9F'
                     ,click: function(type){
                         if(type === 'bar1'){
-                            window.open('<?php echo $core_data['qq_group_url']; ?>');
+                            window.open('<?php echo $core_data["qq_group_url"]; ?>');
                         }
                     }
                 });
@@ -109,29 +109,39 @@
             <li id="index_button" class="layui-nav-item"><a href="/">首页</a></li>
             <li id="doc_button" class="layui-nav-item"><a href="/doc.php">文档</a></li>
             <li id="user_button" class="layui-nav-item">
-                <a href="javascript:void(0);">用户</a>
+                <a href="javascript:void(0);">登录</a>
                 <dl class="layui-nav-child">
-                    <dd><a id="state"></a></dd>
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                <dd><a id="verification_state"></a></dd>
+                                <dd><a href="javascript:void(0);" onclick="verification_login()">验证登录</a></dd>
+                                <dd><a href="javascript:void(0);" onclick="verification_log_out()">验证退出</a></dd>
+                                <hr/>
+                            ';
+                        }
+                    ?>
+                    <dd><a id="qq_state"></a></dd>
                     <dd><a id="qq_number"></a></dd>
-                    <hr/>
-                    <dd><a href="javascript:void(0);" onclick="login()">登录</a></dd>
-                    <dd><a href="javascript:void(0);" onclick="log_out()">退出</a></dd>
+                    <dd><a href="javascript:void(0);" onclick="qq_login()">QQ登录</a></dd>
+                    <dd><a href="javascript:void(0);" onclick="qq_log_out()">QQ退出</a></dd>
                     <hr/>
                     <dd><a id="permission_state"></a></dd>
                     <dd><a href="javascript:void(0);" onclick="permission_login()">权限登录</a></dd>
+                    <dd><a href="javascript:void(0);" onclick="permission_log_out()">权限退出</a></dd>
                 </dl>
             </li>
             <li id="about_button" class="layui-nav-item"><a href="/about.php">关于</a></li>
         </ul>
         
-        <div style="padding-right: 30px; padding-left: 30px; margin-right: auto; margin-left: auto;">
+        <div style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
             <br/>
             <blockquote id="quotation" class="layui-elem-quote"></blockquote>
             <div id="container">
                 <?php
                     if ($page_name != 'index.php' and $page_name != 'doc.php' and $page_name != 'about.php') {
                         echo '
-                            <div class="layui-bg-gray" style="margin-top: 30px; padding: 10px;">
+                            <div class="layui-bg-gray" style="margin-top: 15px; padding: 10px;">
                                 <div class="layui-row layui-col-space10">
                         ';
                     }

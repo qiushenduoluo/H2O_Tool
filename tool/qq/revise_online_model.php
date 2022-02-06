@@ -5,7 +5,7 @@
             <div class="layui-card-body">
                 1.<a href="http://t.cn/A6Z4KWp2" target="_blank">点击此处进入QQ小程序</a><br/>
                 2.点击设备信息.<br/>
-                3.安卓的IMEI为androidID,苹果的为msg_identifier.
+                3.安卓的IMEI为androidID的值,苹果的为msf_identifier的值.
             </div>
         </div>
         
@@ -59,9 +59,22 @@
                     
                     submit_button.disabled = true;
                     
-                    if (!is_login()) {
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
+                    if (!is_qq_login()) {
                         layer.close(load);
-                        layer.alert('未登录');
+                        layer.msg('QQ未登录');
                         submit_button.disabled = false;
                     } else {
                         if(!model || !imei){
@@ -74,7 +87,7 @@
                                 .then(function(data) {
                                     data = data.data.information
                                     layer.close(load);
-                                    layer.msg(data);
+                                    layer.alert(data);
                                     submit_button.disabled = false;
                             });
                         }

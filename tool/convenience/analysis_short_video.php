@@ -54,6 +54,19 @@
                     submit_button.disabled = true;
                     result.style.display = 'none';
                     
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
                     if(!url){
                         layer.close(load);
                         layer.msg('请输入作品网址');
@@ -94,7 +107,7 @@
                                 
                                 continue;
                             }
-                            axios.get('https://api.heroa.cn:3403/convenience/short_video_analysis/?type=' + type + '&url=' + single_url)
+                            axios.get('https://api.heroa.cn:3403/convenience/analysis_short_video/?type=' + type + '&url=' + single_url)
                                 .then(function(data) {
                                     data = data.data.information;
                                     if (data == '未知错误') {

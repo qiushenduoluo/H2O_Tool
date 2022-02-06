@@ -36,6 +36,20 @@
                         qq_number = data.qq_number;
                     
                     submit_button.disabled = true;
+                    
+                    <?php
+                        if ($verification['open']) {
+                            echo '
+                                if (!is_verification_success()) {
+                                    layer.close(load);
+                                    layer.msg("验证未登录");
+                                    submit_button.disabled = false;
+                                    return false;
+                                }
+                            ';
+                        }
+                    ?>
+                    
                     if(!qq_number){
                         layer.close(load);
                         layer.msg('请输入QQ号');

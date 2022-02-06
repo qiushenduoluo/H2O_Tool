@@ -27,6 +27,18 @@
                     result = document.getElementById('result'),
                     result_table = document.getElementById('result_table');
                 
+                <?php
+                    if ($verification['open']) {
+                        echo '
+                            if (!is_verification_success()) {
+                                layer.close(load);
+                                layer.msg("验证未登录");
+                                return false;
+                            }
+                        ';
+                    }
+                ?>
+                
                 axios.get('https://api.heroa.cn:3403/convenience/sixty_second_read_world/')
                     .then(function(data) {
                         data = data.data.information;

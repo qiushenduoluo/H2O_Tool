@@ -4,6 +4,7 @@
 ### core.json
 1. 网站基本信息.
 2. 如不需要公告,将notice值填写"",即"notice": "".
+3. 如需关闭验证,将verification中open,填写false.
 ### advertisement.json
 按照里面的格式填写,链接不能相同.
 ### tool.json
@@ -14,6 +15,11 @@
 5. 最后,把工具文件放在/tool/分类名/中,工具名要与你json中填写的一致.
 ### link.json
 按照里面的格式填写,链接不能相同.
+### Ver1.4(2022.2.5)
+1. 修复了若干Bug.
+2. 优化了显示.
+3. 优化了代码.
+4. 增加了QQ群验证,在/data/cire.json中修改(verification),open为是否开启,group为群号,可多个.
 ### Ver1.3(2022.1.29)
 1. 修复了若干Bug.
 2. 增加了关于扫码登录失败问题的解答.

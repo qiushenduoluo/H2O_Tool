@@ -19,6 +19,36 @@ function get_url(text) {
     return text.match(reg);
 }
 
+function set_cookie(name, value) {
+    cookie = name + '=' + escape(value);
+    document.cookie = cookie;
+}
+
+function get_cookie(name) {
+    var cookie_name = name + '=',
+        cookie_array = document.cookie.split(';');
+    
+    for (var count = 0; count < cookie_array.length; count++) {
+        var single = cookie_array[count].trim();
+        if (single.indexOf(cookie_name) == 0) {
+            return unescape(single.substring(cookie_name.length, single.length));
+        }
+    }
+    return '';
+}
+
+function delete_cookie(name) {
+    document.cookie = name + '=; expires=' + (new Date(0)).toGMTString();
+}
+
+function get_root_path(){
+    var curWwwPath = window.document.location.href;
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+    var localhostPath = curWwwPath.substring(0, pos) + '/';
+    return localhostPath;
+};
+
 function get_request_parameter(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'),
         r = window.location.search.substr(1).match(reg);
@@ -234,4 +264,8 @@ function timestamp_to_time(timestamp) {
         s = date.getSeconds();
     
     return Y + M + D + h + m + s;
+}
+
+function login_failure_reason() {
+    layer.alert('1.部分手机QQ用户无法从相册选中图片进行扫描,会直接拒绝登陆(无法识别二维码).<br/>2.解决方案①:使用TIM从相册选中图片进行扫描.<br/>解决方案②:使用电脑或另一台手机打开页面,然后扫描.');
 }

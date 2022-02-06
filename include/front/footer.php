@@ -28,7 +28,13 @@
             </div>
         </div>
         <!-- 引用js -->
-        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/login.js"></script>
+        <?php
+            if ($verification['open']) {
+                echo '<script type="text/javascript" src="'.ROOT_PATH.'include/front/js/verification_login.js"></script>';
+            }
+        ?>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/qq_login.js"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/permission_login.js"></script>
         <!-- js -->
         <script type="text/javascript">
             function nav_active(id) {
