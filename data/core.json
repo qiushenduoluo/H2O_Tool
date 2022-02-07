@@ -1,18 +1,1 @@
-{
-    "title": "氧化氢工具箱",
-    "subtitle": "一切是那么的简约高效",
-    "keyword": "氧化氢工具箱,氧化氢API文档,网页工具箱",
-    "description": "一切是那么的简约高效.",
-    "ico": "/include/front/image/favicon.ico",
-    "notice": {
-        "time": 6000,
-        "content": "为了能让网站更好的为大家服务,现将网站源码公开,同时也希望同仁加入到我们,源码在官方QQ群下载(目前已更新至1.4版本,2022年2月5日)",
-        "button_name": "加入QQ群",
-        "button_url": "https://jq.qq.com/?_wv=1027&k=x518BpCq"
-    },
-    "qq_group_url": "https://jq.qq.com/?_wv=1027&k=x518BpCq",
-    "verification": {
-        "open": false,
-        "group": ["766912799"]
-    }
-}
+{"title":"氧化氢工具箱","subtitle":"一切是那么的简约高效","keyword":"氧化氢工具箱,氧化氢API文档,网页工具箱","description":"一切是那么的简约高效.","ico_url":"\/include\/front\/image\/favicon.ico","notice":{"open":true,"time":"6000","content":"为了能让网站更好的为大家服务,现将网站源码公开,同时也希望同仁加入到我们,源码在官方QQ群下载(目前已更新至1.5版本,2022年2月7日)","button_name":"加入QQ群","button_url":"https:\/\/jq.qq.com\/?_wv=1027&k=x518BpCq"},"qq_group_url":"https:\/\/jq.qq.com\/?_wv=1027&k=x518BpCq","verification":{"open":false,"qq_group_number":["766912799"]},"password":"e10adc3949ba59abbe56e057f20f883e"}

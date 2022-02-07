@@ -123,8 +123,7 @@
     }
     
     function read($key) {
-        $file_path = RECORD_PATH.$key.'.json';
-        $data = file_get_contents($file_path);
+        $data = file_get_contents(RECORD_PATH.$key.'.json');
         $data = json_decode($data, true);
         return $data;
     }

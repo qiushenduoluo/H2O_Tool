@@ -1,4 +1,1 @@
-{
-    "https://api.heroa.cn:3403/qq/add_friend/?qq_number=2030682303&ad=1": "./include/front/image/advertisement.png",
-    "https://api.heroa.cn:3403/qq/add_friend/?qq_number=2030682303&ad=2": "./include/front/image/advertisement.png"
-}
+{"https:\/\/api.heroa.cn:3403\/qq\/add_friend\/?qq_number=2030682303&ad=1":".\/include\/front\/image\/advertisement.png","https:\/\/api.heroa.cn:3403\/qq\/add_friend\/?qq_number=2030682303&ad=2":".\/include\/front\/image\/advertisement.png"}

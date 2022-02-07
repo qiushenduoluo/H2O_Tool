@@ -1,8 +1,5 @@
 <?php
-    error_reporting(0);
-    header('Content-type: application/json; charset=utf-8');
-    
-    require_once './core.php';
+    require_once './modular.php';
     
     function get() {
         $data = request_http('http://qr.rjk66.cn/api/gethzqr/')[1];

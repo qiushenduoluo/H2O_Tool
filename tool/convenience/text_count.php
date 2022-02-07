@@ -72,7 +72,6 @@
             $('#text').bind('input propertychange', 'textarea', function() {
                 var text = $(this).val();
                 
-                
                 <?php
                     if ($verification['open']) {
                         echo '
@@ -83,7 +82,6 @@
                         ';
                     }
                 ?>
-                
                 
                 if (!text) {
                     document.getElementById('total').innerHTML = 0;

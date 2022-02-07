@@ -1,7 +1,7 @@
 <?php
     $page_name = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1);
     
-    if ($page_name == 'index.php' or $page_name == 'doc.php' or $page_name == 'about.php') {
+    if ($page_name == 'index.php' or $page_name == 'doc.php' or $page_name == 'management.php') {
         define('ROOT_PATH', './');
     } else {
         define('ROOT_PATH', '../../');
@@ -18,7 +18,7 @@
         <title><?php echo $title; ?></title>
         <meta name="keywords" content="<?php echo $keyword; ?>"/>
         <meta name="description" content="<?php echo $core_data['description']; ?>"/>
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $core_data['ico']; ?>"/>
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $core_data['ico_url']; ?>"/>
         <!-- 引用css -->
         <link rel="stylesheet" type="text/css" href="<?php echo ROOT_PATH; ?>include/front/layui/css/layui.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo ROOT_PATH; ?>include/front/css/popup.css"/>
@@ -31,7 +31,7 @@
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/axios.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/popup.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/modular.js"></script>
-        <!-- layui -->
+        <!-- layui-js -->
         <script type="text/javascript">
             layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'util'], function() {
                 var layer = layui.layer
@@ -51,7 +51,7 @@
                 
                 <?php
                     $notice = $core_data['notice'];
-                    if (!empty($notice)) {
+                    if ($notice['open']) {
                         echo '
                             layer.open({
                                 type: 1
@@ -62,7 +62,7 @@
                                 ,btn: ["'.$notice['button_name'].'", "取消"]
                                 ,btnAlign: "c"
                                 ,moveType: 1
-                                ,time: '.$notice['time'].'
+                                ,time: '.intval($notice['time']).'
                                 ,content: '."'".'<div style="padding: 30px; line-height: 20px; background-color: #393D49; color: #fff; font-weight: 300;">'.$notice['content'].'</div>'."'".
                                 ',success: function(layero){
                                     var btn = layero.find(".layui-layer-btn");
@@ -107,7 +107,6 @@
     <body>
         <ul id="nav" class="layui-nav" lay-filter="navigation">
             <li id="index_button" class="layui-nav-item"><a href="/">首页</a></li>
-            <li id="doc_button" class="layui-nav-item"><a href="/doc.php">文档</a></li>
             <li id="user_button" class="layui-nav-item">
                 <a href="javascript:void(0);">登录</a>
                 <dl class="layui-nav-child">
@@ -131,7 +130,8 @@
                     <dd><a href="javascript:void(0);" onclick="permission_log_out()">权限退出</a></dd>
                 </dl>
             </li>
-            <li id="about_button" class="layui-nav-item"><a href="/about.php">关于</a></li>
+            <li id="doc_button" class="layui-nav-item"><a href="/doc.php">文档</a></li>
+            <li id="management_button" class="layui-nav-item"><a href="/management.php">管理</a></li>
         </ul>
         
         <div style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
@@ -139,7 +139,7 @@
             <blockquote id="quotation" class="layui-elem-quote"></blockquote>
             <div id="container">
                 <?php
-                    if ($page_name != 'index.php' and $page_name != 'doc.php' and $page_name != 'about.php') {
+                    if ($page_name != 'index.php' and $page_name != 'doc.php' and $page_name != 'management.php') {
                         echo '
                             <div class="layui-bg-gray" style="margin-top: 15px; padding: 10px;">
                                 <div class="layui-row layui-col-space10">

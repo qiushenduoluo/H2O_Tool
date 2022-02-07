@@ -1,5 +1,5 @@
                 <?php
-                    if ($page_name != 'index.php' and $page_name != 'doc.php' and $page_name != 'about.php') {
+                    if ($page_name != 'index.php' and $page_name != 'doc.php' and $page_name != 'about.php' and $page_name != 'management.php') {
                         echo '
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                 } else if (page_path == '/doc.php') {
                     nav_active('doc_button');
                 } else {
-                    nav_active('about_button');
+                    nav_active('management_button');
                 }
             }
             
