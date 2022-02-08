@@ -129,5 +129,5 @@ function is_qq_login() {
 }
 
 function get_qq_number() {
-    return get_cookie('qq_number').replace('账号:', '');
+    return get_cookie('qq_number').replace('QQ账号:', '');
 }
