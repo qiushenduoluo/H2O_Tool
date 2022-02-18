@@ -81,11 +81,6 @@
             "name": "计算亲戚关系",
             "keyword": "称谓计算"
         },
-        "information_probe": {
-            "name": "信息探针",
-            "keyword": "照妖镜,查询对方IP,GPS,照片",
-            "hot": true
-        },
         "image_caricature": {
             "name": "图像漫画化",
             "keyword": "人物漫画化"
