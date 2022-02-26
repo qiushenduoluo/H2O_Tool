@@ -112,6 +112,14 @@
         "generate_marketing_segment": {
             "name": "生成营销段子",
             "keyword": "生成小编段子"
+        },
+        "history_today": {
+            "name": "历史上的今天",
+            "keyword": "今天发生了什么"
+        },
+        "random_diary": {
+            "name": "随机日记",
+            "keyword": "舔狗日记,保安日记"
         }
     },
     "development": {

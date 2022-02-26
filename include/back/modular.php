@@ -4,7 +4,7 @@
     define('ROOT_PATH', '../../');
     
     session_start();
-    	
+    
     function request_http($url, $type=0, $post_data='', $ua='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58', $cookie='', $header=array(), $redirect=true){
     	// 初始化curl
     	$curl = curl_init();
@@ -55,12 +55,24 @@
     function read($name) {
         $data = file_get_contents(ROOT_PATH.'data/'.$name.'.json');
         $data = json_decode($data, true);
+        if (empty($data)) {
+            $data = file_get_contents(ROOT_PATH.'data/'.$name.'.json');
+            $data = json_decode($data, true);
+        }
         return $data;
     }
     
     function write($name, $data) {
-        $file = fopen(ROOT_PATH.'data/'.$name.'.json', 'w');
-        fwrite($file, json_encode($data, JSON_UNESCAPED_UNICODE));
-        fclose($file);
+        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+        file_put_contents(ROOT_PATH.'data/'.$name.'.json', $data);
+    }
+    
+    function unicode_encode($text){
+        preg_match_all('/./u', $text, $matches);
+        $unicode = '';
+        foreach($matches[0] as $count){
+            $unicode .= '&#'.base_convert(bin2hex(iconv('UTF-8', 'UCS-4', $count)), 16, 10);
+        }
+        return $unicode;
     }
 ?>

@@ -8,7 +8,7 @@
         exit('参数错误');
     }
     if ($action == 'login') {
-        if (md5($value) == read('core')['password']) {
+        if (md5(unicode_encode($value)) == read('core')['password']) {
             $_SESSION['login'] = true;
             exit('登录成功');
         }
@@ -18,7 +18,11 @@
     if (!$_SESSION['login']) {
         exit('未登录');
     }
-    if ($action == 'add_advertisement') {
+    if ($action == 'clear_tool_times') {
+        $data = array();
+        write('tool_times', $data);
+        exit('清空成功');
+    } else if ($action == 'add_advertisement') {
         $data = read('advertisement');
         $data[$value['url']] = $value['image_url'];
         write('advertisement', $data);
@@ -56,11 +60,16 @@
         $data['verification']['qq_group_number'] = explode(',', $value['qq_group_number']);
         $data['notice']['open'] = $value['notice_open'];
         $data['verification']['open'] = $value['verification_open'];
+        $data['custom_code']['css'] = base64_encode($value['custom_code_css']);
+        $data['custom_code']['javascript'] = base64_encode($value['custom_code_javascript']);
+        $data['comment']['open'] = $value['comment_open'];
+        $data['comment']['vercel_url'] = $value['comment_vercel_url'];
+        $data['open_pjax'] = $value['open_pjax'];
         write('core', $data);
         exit('修改成功');
     }  else if ($action == 'revise_password') {
         $data = read('core');
-        $data['password'] = md5($value);
+        $data['password'] = md5(unicode_encode($value));
         write('core', $data);
         $_SESSION['login'] = false;
         exit('修改成功');

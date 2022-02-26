@@ -30,7 +30,10 @@
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/nprogress.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/axios.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/popup.js"></script>
-        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/modular.js"></script>
+        <script type="text/javascript">
+            document.write('<script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/modular.js?timestmap=' + Math.random() + '"><\/script>');
+        </script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/waline.js"></script>
         <!-- layui-js -->
         <script type="text/javascript">
             layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'util'], function() {
@@ -49,58 +52,44 @@
                     }
                 });
                 
-                <?php
-                    $notice = $core_data['notice'];
-                    if ($notice['open']) {
-                        echo '
-                            layer.open({
-                                type: 1
-                                ,title: false
-                                ,closeBtn: false
-                                ,area: "300px;"
-                                ,shade: 0.8
-                                ,btn: ["'.$notice['button_name'].'", "取消"]
-                                ,btnAlign: "c"
-                                ,moveType: 1
-                                ,time: '.intval($notice['time']).'
-                                ,content: '."'".'<div style="padding: 30px; line-height: 20px; background-color: #393D49; color: #fff; font-weight: 300;">'.$notice['content'].'</div>'."'".
-                                ',success: function(layero){
-                                    var btn = layero.find(".layui-layer-btn");
-                                    btn.find(".layui-layer-btn0").attr({
-                                        href: "'.$notice['button_url'].'"
-                                        ,target: "_blank"
-                                    });
-                                }
-                            });
-                        ';
-                    }
-                ?>
+                if (Date.parse(new Date()) - get_cookie('notice_timestamp') > 24 * 60 * 60 * 1000) {
+                    <?php
+                        $notice = $core_data['notice'];
+                        if ($notice['open'] and $page_name != 'management.php') {
+                            echo '
+                                layer.open({
+                                    type: 1
+                                    ,title: false
+                                    ,closeBtn: false
+                                    ,area: "300px;"
+                                    ,shade: 0.8
+                                    ,btn: ["'.$notice['button_name'].'", "取消"]
+                                    ,btnAlign: "c"
+                                    ,moveType: 1
+                                    ,time: '.intval($notice['time']).'
+                                    ,content: '."'".'<div style="padding: 30px; line-height: 20px; background-color: #393D49; color: #fff; font-weight: 300;">'.$notice['content'].'</div>'."'".
+                                    ',success: function(layero){
+                                        var btn = layero.find(".layui-layer-btn");
+                                        btn.find(".layui-layer-btn0").attr({
+                                            href: "'.$notice['button_url'].'"
+                                            ,target: "_blank"
+                                        });
+                                    }
+                                });
+                                set_cookie("notice_timestamp", Date.parse(new Date()))
+                            ';
+                        }
+                    ?>
+                }
             });
         </script>
-        <!-- 百度统计 -->
+        <!-- 自定义CSS -->
+        <style type="text/css">
+            <?php echo base64_decode($core_data['custom_code']['css']); ?>
+        </style>
+        <!-- 自定义JavaScript -->
         <script type="text/javascript">
-            var _hmt = _hmt || [];
-            (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?4914b96046dccbb9ad302ef6e2abcb7b";
-                var s = document.getElementsByTagName("script")[0]; 
-                s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
-        <!-- 百度自动推送 -->
-        <script type="text/javascript">
-            (function(){
-                var bp = document.createElement('script');
-                var curProtocol = window.location.protocol.split(':')[0];
-                if (curProtocol === 'https') {
-                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-                }
-                else {
-                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-                }
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(bp, s);
-            })();
+            <?php echo base64_decode($core_data['custom_code']['javascript']); ?>
         </script>
     </head>
     

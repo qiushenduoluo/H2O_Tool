@@ -1,5 +1,21 @@
                 <?php
                     if ($page_name != 'index.php' and $page_name != 'doc.php' and $page_name != 'about.php' and $page_name != 'management.php') {
+                        if ($core_data['comment']['open']) {
+                            echo '
+                                <div class="layui-card">
+                                    <div class="layui-card-header">评论</div>
+                                    <div class="layui-card-body">
+                                        <div id="comment"></div>
+                                    </div>
+                                </div>
+                                <script>
+                                    Waline({
+                                      el: "#comment",
+                                      serverURL: "'.$core_data['comment']['vercel_url'].'",
+                                    });
+                                </script>
+                            ';
+                        }
                         echo '
                                 </div>
                             </div>
@@ -30,11 +46,17 @@
         <!-- 引用js -->
         <?php
             if ($verification['open']) {
-                echo '<script type="text/javascript" src="'.ROOT_PATH.'include/front/js/verification_login.js"></script>';
+                echo '
+                    <script type="text/javascript">
+                        document.write(\'<script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/verification_login.js?timestmap=\' + Math.random() + \'"><\/script>\');
+                    </script>
+                ';
             }
         ?>
-        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/qq_login.js"></script>
-        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/permission_login.js"></script>
+        <script type="text/javascript">
+            document.write('<script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/qq_login.js?timestmap=' + Math.random() + '"><\/script>');
+            document.write('<script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/permission_login.js?timestmap=' + Math.random() + '"><\/script>');
+        </script>
         <!-- js -->
         <script type="text/javascript">
             function nav_active(id) {
@@ -83,26 +105,33 @@
                 refresh_quotation();
             });
             
-            $(document).pjax('a[target!=_blank]', {
-                container: '#container',
-                fragment: '#container',
-                timeout: 6000
-            }).on('pjax:start',
-                NProgress.start
-            ).on('pjax:success', function() {
-                _hmt.push(['_trackPageview', document.location.pathname]);
-                refresh_nav();
-                refresh_quotation();
-                layui.use('form', function(){
-                    var element = layui.element
-                    ,form = layui.form;
-                    
-                    element.init();
-                    form.render();
-                });
-            }).on('pjax:end',
-                NProgress.done
-            );
+            <?php
+                if ($core_data['open_pjax']) {
+                    echo '
+                        $(document).pjax("a[target!=_blank]", {
+                            container: "#container",
+                            fragment: "#container",
+                            timeout: 6000
+                        }).on("pjax:start",
+                            NProgress.start
+                        ).on("pjax:success", function() {
+                            _hmt.push(["_trackPageview", document.location.pathname]);
+                            layer.closeAll();
+                            refresh_nav();
+                            refresh_quotation();
+                            layui.use("form", function() {
+                                var element = layui.element
+                                ,form = layui.form;
+                                
+                                element.init();
+                                form.render();
+                            });
+                        }).on("pjax:end",
+                            NProgress.done
+                        );
+                    ';
+                }
+            ?>
         </script>
     </body>
     

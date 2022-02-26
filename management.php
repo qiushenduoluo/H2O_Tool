@@ -14,7 +14,7 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">密码</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="password" autocomplete="off" placeholder="请输入密码" class="layui-input" lay-verify="required"/>
+                                                <input type="password" name="password" autocomplete="off" placeholder="请输入密码" class="layui-input" lay-verify="required"/>
                                             </div>
                                         </div>
                                         
@@ -83,6 +83,7 @@
                 <li>广告</li>
                 <li>友链</li>
                 <li>核心</li>
+                <li>评论</li>
                 <li>密码</li>
             </ul>
             
@@ -113,7 +114,7 @@
                                 <div class="layui-card">
                                     <div class="layui-card-header">当前版本</div>
                                     <div class="layui-card-body">
-                                        1.5
+                                        1.6
                                     </div>
                                 </div>
                             </div>
@@ -157,17 +158,19 @@
                                 <div class="layui-card">
                                     <div class="layui-card-header">工具使用总次数</div>
                                     <div class="layui-card-body">
-                                        <?php
-                                            $tool_times_count = 0;
-                                            foreach ($tool_data as $tool_data_key => $tool_data_value) {
-                                                foreach ($tool_data_value as $tool_data_value_key => $tool_data_value_value) {
-                                                    if ($tool_data_value_key != 'name') {
-                                                        $tool_times_count += $tool_times_data[$tool_data_key][$tool_data_value_key];
+                                        <p id="tool_total_times">
+                                            <?php
+                                                $tool_times_count = 0;
+                                                foreach ($tool_data as $tool_data_key => $tool_data_value) {
+                                                    foreach ($tool_data_value as $tool_data_value_key => $tool_data_value_value) {
+                                                        if ($tool_data_value_key != 'name') {
+                                                            $tool_times_count += $tool_times_data[$tool_data_key][$tool_data_value_key];
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            echo $tool_times_count;
-                                        ?>
+                                                echo $tool_times_count;
+                                            ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -191,6 +194,8 @@
                             </div>
                             
                             <div class="layui-col-md4">
+                                <button type="button" class="layui-btn" id="clear_tool_times">清空工具使用次数</button>
+                                
                                 <a id="download_url" href="https://www.heroa.cn/" target="_blank">
                                     <button type="button" class="layui-btn">下载</button>
                                 </a>
@@ -306,7 +311,9 @@
                             <div class="layui-card">
                                 <div class="layui-card-header">说明</div>
                                 <div class="layui-card-body">
-                                    多个QQ群号用英文,隔开.
+                                    1.公告时间为公告自动关闭时间,单位ms.<br/>
+                                    2.多个QQ群号用英文,隔开.<br/>
+                                    3.评论Vercel网址的修改参考网站https://waline.js.org/.
                                 </div>
                             </div>
                             
@@ -358,10 +365,10 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="layui-form-item">
+                                        <div class="layui-form-item layui-form-text">
                                             <label class="layui-form-label">公告内容</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="notice_content" value="<?php echo $core_data['notice']['content']; ?>" autocomplete="off" placeholder="请输入公告内容" class="layui-input" lay-verify="required"/>
+                                                <textarea type="text" name="notice_content" placeholder="请输入公告内容" class="layui-textarea" lay-verify="required"><?php echo $core_data['notice']['content']; ?></textarea>
                                             </div>
                                         </div>
                                         
@@ -393,6 +400,27 @@
                                             </div>
                                         </div>
                                         
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">自定义代码CSS</label>
+                                            <div class="layui-input-block">
+                                                <textarea type="text" name="custom_code_css" placeholder="请输入自定义代码CSS" class="layui-textarea"><?php echo base64_decode($core_data['custom_code']['css']); ?></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">自定义代码JS</label>
+                                            <div class="layui-input-block">
+                                                <textarea type="text" name="custom_code_javascript" placeholder="请输入自定义代码JS" class="layui-textarea"><?php echo base64_decode($core_data['custom_code']['javascript']); ?></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">评论Vercel网址</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="comment_vercel_url" value="<?php echo $core_data['comment']['vercel_url']; ?>" autocomplete="off" placeholder="请输入评论Vercel网址" class="layui-input" lay-verify="required"/>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="layui-form-item" pane="">
                                             <label class="layui-form-label">公告</label>
                                             <div class="layui-input-block">
@@ -403,7 +431,21 @@
                                         <div class="layui-form-item" pane="">
                                             <label class="layui-form-label">验证</label>
                                             <div class="layui-input-block">
-                                                <input type="checkbox" <?php if ($core_data['verification']['open'])echo 'checked=""'; ?> name="verification_open" lay-skin="switch" lay-filter="switchTest" title="QQ群验证"/>
+                                                <input type="checkbox" <?php if ($core_data['verification']['open'])echo 'checked=""'; ?> name="verification_open" lay-skin="switch" lay-filter="switchTest" title="验证"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="layui-form-item" pane="">
+                                            <label class="layui-form-label">评论</label>
+                                            <div class="layui-input-block">
+                                                <input type="checkbox" <?php if ($core_data['comment']['open'])echo 'checked=""'; ?> name="comment_open" lay-skin="switch" lay-filter="switchTest" title="评论"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="layui-form-item" pane="">
+                                            <label class="layui-form-label">Pjax</label>
+                                            <div class="layui-input-block">
+                                                <input type="checkbox" <?php if ($core_data['open_pjax'])echo 'checked=""'; ?> name="open_pjax" lay-skin="switch" lay-filter="switchTest" title="Pjax"/>
                                             </div>
                                         </div>
                                         
@@ -415,6 +457,19 @@
                                         
                                     </form>
                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="layui-tab-item">
+                    <div class="layui-bg-gray" style="margin-top: 15px; padding: 10px;">
+                        <div class="layui-row layui-col-space10">
+                            <div class="layui-card">
+                                <div class="layui-card-header">控制台</div>
+                                <div class="layui-card-body">
+                                    <iframe src="<?php echo $core_data['comment']['vercel_url']; ?>/ui/login" style="width: 100%; height: 600px;" frameborder="0"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -455,7 +510,7 @@
         
         <script type="text/javascript">
             $(document).ready(function() {
-                axios.get('https://www.heroa.cn/data/about.php')
+                axios.get('https://tool.heroa.cn/data/about.php')
                     .then(function(data) {
                         var history_label = document.getElementById('history');
                         
@@ -477,12 +532,36 @@
                         }
                 });
                 
+                clear_tool_times.onclick = function() {
+                    layer.open({
+                        content: '确定要清空工具使用次数吗?'
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index, layero) {
+                            var load = layer.load(0, {shade: false});
+                            let post_data = {
+                                'action': 'clear_tool_times',
+                                'value': 'null'
+                            };
+                            
+                            axios.post('./include/back/management.php', post_data)
+                                .then(function(data) {
+                                    data = data.data;
+                                    if (data == '清空成功') {
+                                        document.getElementById('tool_total_times').innerHTML = '0';
+                                    }
+                                    layer.close(load);
+                                    layer.msg(data);
+                            });
+                        }
+                    });
+                };
+                
                 var advertisement_table = null,
                     advertisement_data = [],
                     link_table = null,
                     link_data = [];
                 
-                axios.get('./data/advertisement.json')
+                axios.get('./data/advertisement.json?timestmap=' + Math.random())
                     .then(function(data) {
                         data = data.data;
                         for (let data_count in data) {
@@ -509,7 +588,7 @@
                         });
                 });
                 
-                axios.get('./data/link.json')
+                axios.get('./data/link.json?timestmap=' + Math.random())
                     .then(function(data) {
                         data = data.data;
                         for (let data_count in data) {
@@ -581,6 +660,7 @@
                                             'image_url': image_url
                                         }
                                     };
+                                    
                                     layer.close(index);
                                     axios.post('./include/back/management.php', post_data)
                                         .then(function(data) {
@@ -644,6 +724,7 @@
                                             'url': url
                                         }
                                     };
+                                    
                                     layer.close(index);
                                     axios.post('./include/back/management.php', post_data)
                                         .then(function(data) {
@@ -685,8 +766,14 @@
                             notice_button_url = data.notice_button_url,
                             qq_group_url = data.qq_group_url,
                             qq_group_number = data.qq_group_number,
+                            custom_code_css = data.custom_code_css,
+                            custom_code_javascript = data.custom_code_javascript,
+                            custom_code_javascript = data.custom_code_javascript,
+                            comment_vercel_url = data.comment_vercel_url,
                             notice_open = data.notice_open,
                             verification_open = data.verification_open;
+                            comment_open = data.comment_open
+                            open_pjax = data.open_pjax;
                         
                         submit_button.disabled = true;
                         
@@ -700,6 +787,17 @@
                         } else {
                             verification_open = false;
                         }
+                        if (comment_open == 'on') {
+                            comment_open = true;
+                        } else {
+                            comment_open = false;
+                        }
+                        if (open_pjax == 'on') {
+                            open_pjax = true;
+                        } else {
+                            open_pjax = false;
+                        }
+                        
                         if(!title || !subtitle || !keyword || !description || !ico_url || !notice_time || !notice_content || !notice_button_name || !notice_button_url || !qq_group_url || !qq_group_number){
                             layer.close(load);
                             layer.msg('参数错误');
@@ -719,8 +817,13 @@
                                     'notice_button_url': notice_button_url,
                                     'qq_group_url': qq_group_url,
                                     'qq_group_number': qq_group_number,
+                                    'custom_code_css': custom_code_css,
+                                    'custom_code_javascript': custom_code_javascript,
+                                    'comment_vercel_url': comment_vercel_url,
                                     'notice_open': notice_open,
-                                    'verification_open': verification_open
+                                    'verification_open': verification_open,
+                                    'comment_open': comment_open,
+                                    'open_pjax': open_pjax
                                 }
                             };
                             

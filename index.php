@@ -38,6 +38,10 @@
                                                 $tool_url = './tool/'.$tool_data_key.'/'.$tool_data_value_key.'.php';
                                                 $tool_target = '_self';
                                             }
+                                            $tool_times = $tool_times_data[$tool_data_key][$tool_data_value_key];
+                                            if (empty($tool_times)) {
+                                                $tool_times = 0;
+                                            }
                                             echo '
                                                 <div class="layui-col-md3">
                                                     <div class="layui-card">
@@ -46,7 +50,7 @@
                                                         </div>
                                                         <div class="layui-card-body">'
                                                             .$tool_data_value_value['keyword'].'<br/>
-                                                            使用次数:'.$tool_times_data[$tool_data_key][$tool_data_value_key].
+                                                            使用次数:'.$tool_times.
                                                         '</div>
                                                     </div>
                                                 </div>
@@ -74,6 +78,10 @@
                                     $tool_url = './tool/'.$tool_data_key.'/'.$tool_data_value_key.'.php';
                                     $tool_target = '_self';
                                 }
+                                $tool_times = $tool_times_data[$tool_data_key][$tool_data_value_key];
+                                if (empty($tool_times)) {
+                                    $tool_times = 0;
+                                }
                                 echo '
                                     <div class="layui-col-md3">
                                         <div class="layui-card">
@@ -82,7 +90,7 @@
                                             </div>
                                             <div class="layui-card-body">'
                                                 .$tool_data_value_value['keyword'].'<br/>
-                                                使用次数:'.$tool_times_data[$tool_data_key][$tool_data_value_key].
+                                                使用次数:'.$tool_times.
                                             '</div>
                                         </div>
                                     </div>
