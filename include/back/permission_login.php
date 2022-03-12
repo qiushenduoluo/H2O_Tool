@@ -23,6 +23,7 @@
         return_response_result($data['msg']);
     }
     
+    $type = $_GET['type'];
     $id = $_GET['id'];
     if ($type != 'result' or empty($id)) {
         return_response_result('参数错误');
