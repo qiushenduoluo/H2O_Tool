@@ -52,7 +52,6 @@
         $data['keyword'] = $value['keyword'];
         $data['description'] = $value['description'];
         $data['ico_url'] = $value['ico_url'];
-        $data['notice']['time'] = $value['notice_time'];
         $data['notice']['content'] = $value['notice_content'];
         $data['notice']['button_name'] = $value['notice_button_name'];
         $data['notice']['button_url'] = $value['notice_button_url'];

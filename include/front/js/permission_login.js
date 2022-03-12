@@ -6,32 +6,39 @@ if (!get_cookie('permission_state')) {
 
 permission_state_label.innerHTML = get_cookie('permission_state');
 
-var permission_get_ing = false;
+var permission_get_ing = false,
     permission_id = '',
     permission_qr_code = '',
-    check_permission_login_qr_code_handle = undefined;
+    check_permission_login_qr_code_handle = undefined,
+    permission_check_login_qr_code_count = 0,
+    permission_login_success = false;
 
 function check_permission_login_qr_code() {
-    var check_login_qr_code_count = 0;
-    
-    check_login_qr_code_count++;
-    if (check_login_qr_code_count > 120) {
+    permission_check_login_qr_code_count++;
+    if (permission_check_login_qr_code_count > 120) {
         clearInterval(check_permission_login_qr_code_handle);
     }
     axios.get(get_root_path() + 'include/back/permission_login.php?type=result&id=' + permission_id)
         .then(function(data) {
             data = data.data;
-            if (data == '已登录') {
-                set_cookie('permission_state', '权限状态:已登录');
-                permission_state_label.innerHTML = '权限状态:已登录';
-                $('#permission_qr_code_state').html('状态:已登录');
-                layer.alert('登录成功');
+            if (data.state == '已登录') {
                 clearInterval(check_permission_login_qr_code_handle);
-                return ;
+                if (!permission_login_success) {
+                    permission_login_success = true;
+                    if (data.qq_number == get_qq_number()) {
+                        set_cookie('permission_state', '权限状态:已登录');
+                        permission_state_label.innerHTML = '权限状态:已登录';
+                        $('#permission_qr_code_state').html('状态:已登录');
+                        layer.alert('登录成功');
+                    } else {
+                        permission_state_label.innerHTML = '权限状态:失败';
+                        $('#permission_qr_code_state').html('状态:失败');
+                        layer.alert('登录失败,与QQ登录中的账号不匹配');
+                    }
+                }
             } else if (data == '已失效') {
                 $('#permission_qr_code_state').html('状态:已失效(点击二维码刷新)');
                 clearInterval(check_permission_login_qr_code_handle);
-                return ;
             } else {
                 $('#permission_qr_code_state').html('状态:' + data);
             }
@@ -56,6 +63,7 @@ function get_permission_login_qr_code() {
                 clearInterval(check_permission_login_qr_code_handle);
                 check_permission_login_qr_code_handle = setInterval(check_permission_login_qr_code, 1000);
                 permission_get_ing = false;
+                permission_login_success = false;
                 layer.close(load);
         });
     }

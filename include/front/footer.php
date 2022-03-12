@@ -48,7 +48,7 @@
             if ($verification['open']) {
                 echo '
                     <script type="text/javascript">
-                        document.write(\'<script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/verification_login.js?timestmap=\' + Math.random() + \'"><\/script>\');
+                        document.write(\'<script type="text/javascript" src="'.ROOT_PATH.'include/front/js/verification_login.js?timestmap=\' + Math.random() + \'"><\/script>\');
                     </script>
                 ';
             }

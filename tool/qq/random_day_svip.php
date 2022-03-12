@@ -1,13 +1,6 @@
 <?php require_once '../../include/front/header.php'; ?>
         
         <div class="layui-card">
-            <div class="layui-card-header">说明</div>
-            <div class="layui-card-body">
-                每个QQ账户只能领取一次.
-            </div>
-        </div>
-        
-        <div class="layui-card">
             <div class="layui-card-header">控制台</div>
             <div class="layui-card-body">
                 
@@ -60,7 +53,7 @@
                         layer.msg('权限未登录');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('../../include/back/tool_api/2svip.php?uin=' + get_qq_number() + '&skey=' + get_cookie('skey') + '&pskey=' + get_cookie('p_skey'))
+                        axios.get('../../include/back/tool_api/sjsvip.php?uin=' + get_qq_number() + '&skey=' + get_cookie('vip_skey') + '&pskey=' + get_cookie('vip_p_skey'))
                             .then(function(data) {
                                 data = data.data.msg
                                 layer.close(load);

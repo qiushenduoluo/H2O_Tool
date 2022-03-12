@@ -24,28 +24,9 @@
             "name": "生成加群链接",
             "keyword": "生成加群链接"
         },
-        "cfm_four_day_svip": {
-            "name": "4天SVIP",
-            "keyword": "4天SVIP",
-            "hot": true
-        },
         "three_day_green_diamond": {
             "name": "3天绿钻",
             "keyword": "3天绿钻",
-            "hot": true
-        },
-        "speedm_two_day_svip": {
-            "name": "2天SVIP[1]",
-            "keyword": "2天SVIP[1]",
-            "hot": true
-        },
-        "codm_two_day_svip": {
-            "name": "2天SVIP[2]",
-            "keyword": "2天SVIP[2]",
-            "hot": true
-        },"zone_popularity": {
-            "name": "空间人气",
-            "keyword": "空间人气",
             "hot": true
         },
         "common_group": {
@@ -68,6 +49,11 @@
         "qq_cookie": {
             "name": "查询QQ-Cookie",
             "keyword": "获取QQ登录Cookie",
+            "hot": true
+        },
+        "random_day_svip": {
+            "name": "随机SVIP天数",
+            "keyword": "0-80天",
             "hot": true
         }
     },

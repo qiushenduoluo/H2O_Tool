@@ -80,6 +80,9 @@
                         submit_button.disabled = false;
                     } else {
                         result_table.innerHTML += ' \
+                            <tr><td>superuin</td><td>' + get_cookie('superuin') + '</td></tr> \
+                            <tr><td>superkey</td><td>' + get_cookie('superkey') + '</td></tr> \
+                            <tr><td>supertoken</td><td>' + get_cookie('supertoken') + '</td></tr> \
                             <tr><td>uin</td><td>' + get_cookie('uin') + '</td></tr> \
                             <tr><td>skey</td><td>' + get_cookie('skey') + '</td></tr> \
                             <tr><td>p_uin</td><td>' + get_cookie('p_uin') + '</td></tr> \

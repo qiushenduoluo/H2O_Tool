@@ -114,7 +114,7 @@
                                 <div class="layui-card">
                                     <div class="layui-card-header">当前版本</div>
                                     <div class="layui-card-body">
-                                        1.6
+                                        1.7 普通版
                                     </div>
                                 </div>
                             </div>
@@ -230,10 +230,10 @@
                             <h2 class="layui-colla-title">如何增加新工具?</h2>
                             <div class="layui-colla-content">
                                 <p>
-                                    1.首先,在/data/tool.json中按照里面的格式填写.<br>
-                                    2.其次,工具可自定义网址,在单个工具的键值中修改,例如"url": "https://www.baidu.com/",网址只能指向外站.<br>
-                                    3.再次,如工具需在热门中展示,在单个工具的键值中修改,增加"hot": "true".<br>
-                                    4.然后,工具展示可自定义颜色,在单个工具的键值中修改,例如"color": "red".<br>
+                                    1.首先,在/data/tool.json中按照其格式填写工具信息(为了方便教程,分类别名假设为a,工具别名假设为b).<br/>
+                                    2.其次,工具可自定义网址,在单个工具的键值中修改,例如"url": "https://www.baidu.com/",网址只能指向外站.<br/>
+                                    3.再次,如工具需在热门中展示,在单个工具的键值中修改,增加"hot": "true".<br/>
+                                    4.然后,在/tool/目录下,进入a文件夹创建名称为b.php文件(b.php文件可参考示例/tool/tool_example.php文件进行修改).<br/>
                                     5.最后,把工具文件放在/tool/分类名/中,工具名要与你json中填写的一致.
                                 </p>
                             </div>
@@ -355,13 +355,6 @@
                                             <label class="layui-form-label">图标网址</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="ico_url" value="<?php echo $core_data['ico_url']; ?>" autocomplete="off" placeholder="请输入图标网址" class="layui-input" lay-verify="required"/>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">公告时间</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="notice_time" value="<?php echo $core_data['notice']['time']; ?>" autocomplete="off" placeholder="请输入公告时间" class="layui-input" lay-verify="required"/>
                                             </div>
                                         </div>
                                         
@@ -760,7 +753,6 @@
                             keyword = data.keyword,
                             description = data.description,
                             ico_url = data.ico_url,
-                            notice_time = data.notice_time,
                             notice_content = data.notice_content,
                             notice_button_name = data.notice_button_name,
                             notice_button_url = data.notice_button_url,
@@ -798,7 +790,7 @@
                             open_pjax = false;
                         }
                         
-                        if(!title || !subtitle || !keyword || !description || !ico_url || !notice_time || !notice_content || !notice_button_name || !notice_button_url || !qq_group_url || !qq_group_number){
+                        if(!title || !subtitle || !keyword || !description || !ico_url || !notice_content || !notice_button_name || !notice_button_url || !qq_group_url || !qq_group_number){
                             layer.close(load);
                             layer.msg('参数错误');
                             submit_button.disabled = false;
@@ -811,7 +803,6 @@
                                     'keyword': keyword,
                                     'description': description,
                                     'ico_url': ico_url,
-                                    'notice_time': notice_time,
                                     'notice_content': notice_content,
                                     'notice_button_name': notice_button_name,
                                     'notice_button_url': notice_button_url,

@@ -90,9 +90,7 @@
                                         }
                                     });
                                 } else {
-                                  layer.open({
-                                    content: data
-                                  });
+                                    layer.alert(data);
                                 }
                                 submit_button.disabled = false;
                         });

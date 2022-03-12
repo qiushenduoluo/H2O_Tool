@@ -13,6 +13,15 @@ function copy_text(text) {
     document.body.removeChild(dummy);
 }
 
+function is_android() {
+    var u = navigator.userAgent;
+    
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+        return true;
+    }
+    return false;
+}
+
 function get_url(text) {
     var reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g;
 

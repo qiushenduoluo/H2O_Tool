@@ -27,6 +27,7 @@
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/layui/layui.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/jquery.pjax.js"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/sweetalert.min.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/nprogress.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/axios.js"></script>
         <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/popup.js"></script>
@@ -45,43 +46,45 @@
                     ,bar2: false
                     ,css: {right: 30, bottom: 100}
                     ,bgcolor: '#9F9F9F'
-                    ,click: function(type){
-                        if(type === 'bar1'){
+                    ,click: function(type) {
+                        if(type === 'bar1') {
                             window.open('<?php echo $core_data["qq_group_url"]; ?>');
                         }
                     }
                 });
-                
-                if (Date.parse(new Date()) - get_cookie('notice_timestamp') > 24 * 60 * 60 * 1000) {
-                    <?php
-                        $notice = $core_data['notice'];
-                        if ($notice['open'] and $page_name != 'management.php') {
-                            echo '
-                                layer.open({
-                                    type: 1
-                                    ,title: false
-                                    ,closeBtn: false
-                                    ,area: "300px;"
-                                    ,shade: 0.8
-                                    ,btn: ["'.$notice['button_name'].'", "取消"]
-                                    ,btnAlign: "c"
-                                    ,moveType: 1
-                                    ,time: '.intval($notice['time']).'
-                                    ,content: '."'".'<div style="padding: 30px; line-height: 20px; background-color: #393D49; color: #fff; font-weight: 300;">'.$notice['content'].'</div>'."'".
-                                    ',success: function(layero){
-                                        var btn = layero.find(".layui-layer-btn");
-                                        btn.find(".layui-layer-btn0").attr({
-                                            href: "'.$notice['button_url'].'"
-                                            ,target: "_blank"
-                                        });
+            });
+        </script>
+        <!-- sweetalert-js -->
+        <script type="text/javascript">
+            if (Date.parse(new Date()) - get_cookie('notice_timestamp') > 24 * 60 * 60 * 1000) {
+                <?php
+                    $notice = $core_data['notice'];
+                    if ($notice['open'] and $page_name != 'management.php') {
+                        echo '
+                            $(document).ready(function() {
+                                swal("'.$notice['content'].'", {
+                                    title: "公告",
+                                    buttons: {
+                                        catch: {
+                                            text: "'.$notice['button_name'].'",
+                                            value: "button_event",
+                                        },
+                                        cancel: "取消"
+                                    },
+                                })
+                                .then((value) => {
+                                  switch (value) {
+                                    case "button_event":
+                                        window.open("'.$notice['button_url'].'");
+                                        break;
                                     }
                                 });
                                 set_cookie("notice_timestamp", Date.parse(new Date()))
-                            ';
-                        }
-                    ?>
-                }
-            });
+                            })
+                        ';
+                    }
+                ?>
+            }
         </script>
         <!-- 自定义CSS -->
         <style type="text/css">

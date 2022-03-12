@@ -46,7 +46,7 @@
                                                 <div class="layui-col-md3">
                                                     <div class="layui-card">
                                                         <div class="layui-card-header">
-                                                            <a href="'.$tool_url.'" target="'.$tool_target.'" style="color: '.$tool_data_value_value['color'].';">['.$tool_data_value['name'].']'.$tool_data_value_value['name'].'</a>
+                                                            <a href="'.$tool_url.'" target="'.$tool_target.'">['.$tool_data_value['name'].']'.$tool_data_value_value['name'].'</a>
                                                         </div>
                                                         <div class="layui-card-body">'
                                                             .$tool_data_value_value['keyword'].'<br/>
@@ -86,7 +86,7 @@
                                     <div class="layui-col-md3">
                                         <div class="layui-card">
                                             <div class="layui-card-header">
-                                                <a href="'.$tool_url.'" target="'.$tool_target.'" style="color: '.$tool_data_value_value['color'].';">'.$tool_data_value_value['name'].'</a>
+                                                <a href="'.$tool_url.'" target="'.$tool_target.'">'.$tool_data_value_value['name'].'</a>
                                             </div>
                                             <div class="layui-card-body">'
                                                 .$tool_data_value_value['keyword'].'<br/>
