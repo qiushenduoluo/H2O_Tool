@@ -61,6 +61,7 @@
         $data['verification']['open'] = $value['verification_open'];
         $data['custom_code']['css'] = base64_encode($value['custom_code_css']);
         $data['custom_code']['javascript'] = base64_encode($value['custom_code_javascript']);
+        $data['custom_code']['pjax_success_javascript'] = base64_encode($value['custom_code_pjax_success_javascript']);
         $data['comment']['open'] = $value['comment_open'];
         $data['comment']['vercel_url'] = $value['comment_vercel_url'];
         $data['open_pjax'] = $value['open_pjax'];

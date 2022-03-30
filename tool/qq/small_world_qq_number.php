@@ -1,14 +1,33 @@
 <?php require_once '../../include/front/header.php'; ?>
         
         <div class="layui-card">
+            <div class="layui-card-header">说明</div>
+            <div class="layui-card-body">
+                1.进入小世界个人主页.<br/>
+                2.点击右上角的三个点.<br/>
+                3.点击举报.<br/>
+                4.再点击右上角三个点复制链接.<br/>
+                5.粘贴至本页面输入框.<br/>
+                6.点击查询即可.
+            </div>
+        </div>
+        
+        <div class="layui-card">
             <div class="layui-card-header">控制台</div>
             <div class="layui-card-body">
                 
                 <form class="layui-form layui-form-pane">
                     
                     <div class="layui-form-item">
+                        <label class="layui-form-label">链接</label>
                         <div class="layui-input-block">
-                            <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">领取</button>
+                            <input type="text" name="url" autocomplete="off" placeholder="请输入链接" class="layui-input" lay-verify="required"/>
+                        </div>
+                    </div>
+                    
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">查询</button>
                         </div>
                     </div>
                     
@@ -26,8 +45,7 @@
                     
                     var load = layer.load(0, {shade: false}),
                         submit_button = document.getElementById('submit_button'),
-                        model = data.model,
-                        imei = data.imei;
+                        url = data.url;
                     
                     submit_button.disabled = true;
                     
@@ -44,22 +62,26 @@
                         }
                     ?>
                     
-                    if (!is_qq_login()) {
+                    if(!url){
                         layer.close(load);
-                        layer.msg('QQ未登录');
-                        submit_button.disabled = false;
-                    } else if (!is_permission_login()) {
-                        layer.close(load);
-                        layer.msg('权限未登录');
+                        layer.msg('请输入链接');
                         submit_button.disabled = false;
                     } else {
-                        axios.get('../../include/back/tool_api/sjsvip.php?uin=' + get_qq_number() + '&skey=' + get_cookie('vip_skey') + '&pskey=' + get_cookie('vip_p_skey'))
-                            .then(function(data) {
-                                data = data.data.msg
-                                layer.close(load);
-                                layer.alert(data);
-                                submit_button.disabled = false;
+                        var qq_number = get_middle_text(url, 'eviluin=', '&appname');
+                        
+                        layer.close(load);
+                        layer.open({
+                            content: 'QQ账号:' + qq_number
+                            ,btn: ['加为好友', '复制', '取消']
+                            ,yes: function(index, layero){
+                                window.location.href = 'https://api.heroa.cn:3403/qq/add_friend/?qq_number=' + qq_number;
+                            }
+                            ,btn2: function(index, layero){
+                                copy_text(qq_number);
+                                layer.msg('复制成功');
+                            }
                         });
+                        submit_button.disabled = false;
                     }
                     
                     return false;

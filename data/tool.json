@@ -3,7 +3,12 @@
         "name": "QQ",
         "kandian_qq_number": {
             "name": "看点QQ账号",
-            "keyword": "QQ看点账号",
+            "keyword": "查询QQ看点账号",
+            "hot": true
+        },
+        "small_world_qq_number": {
+            "name": "小世界QQ账号",
+            "keyword": "查询小世界QQ账号",
             "hot": true
         },
         "revise_online_model": {
@@ -54,6 +59,11 @@
         "random_day_svip": {
             "name": "随机SVIP天数",
             "keyword": "0-80天",
+            "hot": true
+        },
+        "zone_gift": {
+            "name": "QQ空间送礼",
+            "keyword": "空间无限送礼物",
             "hot": true
         }
     },
@@ -106,6 +116,16 @@
         "random_diary": {
             "name": "随机日记",
             "keyword": "舔狗日记,保安日记"
+        },
+        "pinyin_acronym_translation": {
+            "name": "拼音首字母缩写翻译",
+            "keyword": "中文缩写翻译",
+            "hot": true
+        },
+        "abstract_word": {
+            "name": "抽象话转换",
+            "keyword": "抽象文字",
+            "hot": true
         }
     },
     "development": {

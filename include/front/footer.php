@@ -115,7 +115,7 @@
                         }).on("pjax:start",
                             NProgress.start
                         ).on("pjax:success", function() {
-                            _hmt.push(["_trackPageview", document.location.pathname]);
+                            '.base64_decode($core_data['custom_code']['pjax_success_javascript']).'
                             layer.closeAll();
                             refresh_nav();
                             refresh_quotation();

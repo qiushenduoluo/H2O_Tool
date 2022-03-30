@@ -216,7 +216,7 @@ $post_data = "
                                 }
                             }
                 echo '
-$data = request_http("'.$api_url.'",1 , $post_data)[1];
+$data = request_http("'.$api_url.'", 1, $post_data)[1];
 $data = json_decode($data, true);</pre>
                     </div>
                             

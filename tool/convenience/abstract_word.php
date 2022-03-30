@@ -7,15 +7,25 @@
                 <form class="layui-form layui-form-pane">
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">QQ号</label>
+                        <label class="layui-form-label">类型</label>
                         <div class="layui-input-block">
-                            <input type="text" name="qq_number" autocomplete="off" placeholder="请输入QQ号" class="layui-input" lay-verify="required"/>
+                            <select name="type" lay-verify="required">
+                                <option value="generate" selected="">生成</option>
+                                <option value="reduction">还原</option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文本</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="text" autocomplete="off" placeholder="请输入文本" class="layui-input" lay-verify="required"/>
                         </div>
                     </div>
                     
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">查询</button>
+                            <button type="submit" id="submit_button" class="layui-btn" lay-submit="" lay-filter="submit_button">提交</button>
                         </div>
                     </div>
                     
@@ -31,6 +41,8 @@
             </div>
         </div>
         
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/grapheme-splitter.js"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>include/front/js/abstract_word.js"></script>
         <script type="text/javascript">
             layui.use(['form'], function() {
                 var form = layui.form;
@@ -40,13 +52,12 @@
                     
                     var load = layer.load(0, {shade: false}),
                         submit_button = document.getElementById('submit_button'),
-                        qq_number = data.qq_number,
+                        type = data.type,
+                        text = data.text,
                         result = document.getElementById('result'),
                         result_text = document.getElementById('result_text');
                     
                     submit_button.disabled = true;
-                    result_text.innerHTML = '';
-                    result.style.display = 'none';
                     
                     <?php
                         if ($verification['open']) {
@@ -61,33 +72,20 @@
                         }
                     ?>
                     
-                    if (!is_qq_login()) {
+                    if(!type || !text){
                         layer.close(load);
-                        layer.msg('QQ未登录');
+                        layer.msg('请填写完整信息');
                         submit_button.disabled = false;
                     } else {
-                        if(!qq_number){
-                            layer.close(load);
-                            layer.msg('请输入QQ号');
-                            submit_button.disabled = false;
+                        if (type == 'generate') {
+                            information = chouxiang(text);
                         } else {
-                            axios.get('https://api.heroa.cn:3403/qq/common_group/?qq_number=' + qq_number + '&p_uin=' + get_cookie('p_uin') + '&p_skey=' + get_cookie('p_skey'))
-                                .then(function(data) {
-                                    data = data.data.information
-                                    if (typeof data == 'object') {
-                                        for (let data_count in data) {
-                                            result_text.innerHTML += data[data_count] + ',';
-                                        }
-                                        layer.close(load);
-                                        result.style.display = "block";
-                                        submit_button.disabled = false;
-                                    } else {
-                                        layer.close(load);
-                                        layer.alert(data);
-                                        submit_button.disabled = false;
-                                    }
-                            });
+                            information = dechouxiang(text);
                         }
+                        result_text.innerHTML = information;
+                        layer.close(load);
+                        result.style.display = "block";
+                        submit_button.disabled = false;
                     }
                     
                     return false;

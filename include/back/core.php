@@ -20,7 +20,7 @@
         $doc_data = json_decode($doc_data, true);
         $doc_data = $doc_data['information'];
         $doc_root_times = $doc_data['root_times'];
-        array_shift($doc_data);
+        unset($doc_data['root_times']);
         $api_category = $_GET['category'];
         $api_name = $_GET['name'];
         $is_doc = false;

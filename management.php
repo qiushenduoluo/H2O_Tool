@@ -114,7 +114,7 @@
                                 <div class="layui-card">
                                     <div class="layui-card-header">当前版本</div>
                                     <div class="layui-card-body">
-                                        1.7 普通版
+                                        1.8 普通版
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
                             <div class="layui-colla-content">
                                 <p>
                                     1.PHP >= 7.3.<br/>
-                                    2.支持cURL.
+                                    2.PHP支持cURL.
                                 </p>
                             </div>
                         </div>
@@ -313,7 +313,8 @@
                                 <div class="layui-card-body">
                                     1.公告时间为公告自动关闭时间,单位ms.<br/>
                                     2.多个QQ群号用英文,隔开.<br/>
-                                    3.评论Vercel网址的修改参考网站https://waline.js.org/.
+                                    3.自定义Pjax成功完成代码JS代表Pjax成功后执行的JS代码,可填写百度统计重新执行代码(默认已填写,如自定义JS代码中无百度统计代码,要将此代码删除,否则Pjax执行出错).<br/>
+                                    4.评论Vercel网址的修改参考网站https://waline.js.org/.
                                 </div>
                             </div>
                             
@@ -404,6 +405,13 @@
                                             <label class="layui-form-label">自定义代码JS</label>
                                             <div class="layui-input-block">
                                                 <textarea type="text" name="custom_code_javascript" placeholder="请输入自定义代码JS" class="layui-textarea"><?php echo base64_decode($core_data['custom_code']['javascript']); ?></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">自定义Pjax成功完成代码JS</label>
+                                            <div class="layui-input-block">
+                                                <textarea type="text" name="custom_code_pjax_success_javascript" placeholder="自定义Pjax成功完成代码JS" class="layui-textarea"><?php echo base64_decode($core_data['custom_code']['pjax_success_javascript']); ?></textarea>
                                             </div>
                                         </div>
                                         
@@ -510,7 +518,7 @@
                         data = data.data;
                         history_distinguish = data.history;
                         document.getElementById('notice').innerHTML = data.notice;
-                        document.getElementById('latest_version').innerHTML = data.latest_version;
+                        document.getElementById('latest_version').innerHTML = data.latest_version + ' 普通版';
                         document.getElementById('download_url').href = data.download_url;
                         for (let history_count in history_distinguish) {
                             history_label.innerHTML += ' \
@@ -760,7 +768,7 @@
                             qq_group_number = data.qq_group_number,
                             custom_code_css = data.custom_code_css,
                             custom_code_javascript = data.custom_code_javascript,
-                            custom_code_javascript = data.custom_code_javascript,
+                            custom_code_pjax_success_javascript = data.custom_code_pjax_success_javascript,
                             comment_vercel_url = data.comment_vercel_url,
                             notice_open = data.notice_open,
                             verification_open = data.verification_open;
@@ -810,6 +818,7 @@
                                     'qq_group_number': qq_group_number,
                                     'custom_code_css': custom_code_css,
                                     'custom_code_javascript': custom_code_javascript,
+                                    'custom_code_pjax_success_javascript': custom_code_pjax_success_javascript,
                                     'comment_vercel_url': comment_vercel_url,
                                     'notice_open': notice_open,
                                     'verification_open': verification_open,

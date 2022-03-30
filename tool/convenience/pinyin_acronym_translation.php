@@ -7,9 +7,9 @@
                 <form class="layui-form layui-form-pane">
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">QQ号</label>
+                        <label class="layui-form-label">缩写</label>
                         <div class="layui-input-block">
-                            <input type="text" name="qq_number" autocomplete="off" placeholder="请输入QQ号" class="layui-input" lay-verify="required"/>
+                            <input type="text" name="abbreviation" autocomplete="off" placeholder="请输入缩写" class="layui-input" lay-verify="required"/>
                         </div>
                     </div>
                     
@@ -40,7 +40,7 @@
                     
                     var load = layer.load(0, {shade: false}),
                         submit_button = document.getElementById('submit_button'),
-                        qq_number = data.qq_number,
+                        abbreviation = data.abbreviation,
                         result = document.getElementById('result'),
                         result_text = document.getElementById('result_text');
                     
@@ -61,33 +61,35 @@
                         }
                     ?>
                     
-                    if (!is_qq_login()) {
+                    if(!abbreviation){
                         layer.close(load);
-                        layer.msg('QQ未登录');
+                        layer.msg('请输入缩写');
                         submit_button.disabled = false;
                     } else {
-                        if(!qq_number){
-                            layer.close(load);
-                            layer.msg('请输入QQ号');
-                            submit_button.disabled = false;
-                        } else {
-                            axios.get('https://api.heroa.cn:3403/qq/common_group/?qq_number=' + qq_number + '&p_uin=' + get_cookie('p_uin') + '&p_skey=' + get_cookie('p_skey'))
-                                .then(function(data) {
-                                    data = data.data.information
-                                    if (typeof data == 'object') {
-                                        for (let data_count in data) {
-                                            result_text.innerHTML += data[data_count] + ',';
-                                        }
-                                        layer.close(load);
-                                        result.style.display = "block";
-                                        submit_button.disabled = false;
-                                    } else {
-                                        layer.close(load);
-                                        layer.alert(data);
-                                        submit_button.disabled = false;
+                        let post_data = {
+                            "text": abbreviation
+                        };
+                        axios.post('https://lab.magiconch.com/api/nbnhhsh/guess', post_data)
+                            .then(function(data) {
+                                data = data.data[0];
+                                if (data.trans) {
+                                    for (let data_count in data.trans) {
+                                        result_text.innerHTML += data.trans[data_count] + ',';
                                     }
-                            });
-                        }
+                                    layer.close(load);
+                                    result.style.display = "block";
+                                    submit_button.disabled = false;
+                                } else if (data.inputting) {
+                                    result_text.innerHTML = data.inputting[0];
+                                    layer.close(load);
+                                    result.style.display = "block";
+                                    submit_button.disabled = false;
+                                } else {
+                                    layer.close(load);
+                                    layer.alert('未查询到');
+                                    submit_button.disabled = false;
+                                }
+                        });
                     }
                     
                     return false;
